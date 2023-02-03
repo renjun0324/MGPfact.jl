@@ -71,11 +71,13 @@
 nc = 1
 L = 3
 Q = 3
-rt = [1,2,3]
-using CellTrek, Mamba, RData
-yx = RData.load("murp_matrix_pca.rda")
-yx = yx["murp_matrix_pca"][:,1:Q]
+rt = 1
 iterations = 10
+
+using CellTrek, Mamba, RData
+test_data = joinpath(dirname(pathof(CellTrek)),"..","test","test.rda")
+yx = RData.load(test_data)
+yx = yx["murp_matrix_pca"][:,1:Q]
 
 # running model
 model = CellTrek.modMGPpseudoT()

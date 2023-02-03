@@ -20,7 +20,8 @@ using RData
 L = 3
 Q = 3
 rt = 1
-yx = RData.load("test/murp_matrix_pca.rda")
+test_data = joinpath(dirname(pathof(CellTrek)),"..","test","test.rda")
+yx = RData.load(test_data)
 yx = yx["murp_matrix_pca"][:,1:Q]
 iterations = 200
 
@@ -55,7 +56,9 @@ nc = 3
 L = 3
 Q = 3
 rt = 1
-yx = load("test/murp_matrix_pca.rda")
+
+test_data = joinpath(dirname(pathof(CellTrek)),"..","test","test.rda")
+yx = RData.load(test_data)
 yx = yx["murp_matrix_pca"][:,1:Q]
 iterations = 200
 
