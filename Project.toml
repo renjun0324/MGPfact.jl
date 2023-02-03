@@ -1,7 +1,7 @@
 name = "CellTrek"
 uuid = "2c198e2a-189c-47da-a5ee-ea2590688210"
 authors = ["renjun <312827559@qq.com>"]
-version = "0.1.2"
+version = "0.1.4"
 
 [deps]
 Cairo_jll = "83423d85-b0ee-5818-9007-b63ccbeb887a"
@@ -13,5 +13,7 @@ ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
 KernelFunctions = "ec8451be-7e33-11e9-00cf-bbf324bd1392"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+MLKernels = "6899632a-1081-549c-8d71-752c8a25a7ba"
 Mamba = "5424a776-8be3-5c5b-a13f-3551f69ba0e6"
+SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
