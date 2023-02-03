@@ -3,6 +3,12 @@
 
 Single-cell differentiation trajectory reconstruction
 
+## installation
+```julia
+]
+add https://github.com/renjun0324/CellTrek.jl
+using CellTrek
+```
 
 ## quick start
 
