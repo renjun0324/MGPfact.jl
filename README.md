@@ -31,6 +31,12 @@ setsamplers!(model, scheme)
 
 @time sim1 = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
 
+# save
+using JLD2
+write(string("iter",sim.model.iter,"_bi",sim.model.burnin,".jls"), sim)
+@save string("inits.jld2") inits
+
+
 ```
 
 ## multiple chains
@@ -61,5 +67,10 @@ setinits!(model, inits)
 setsamplers!(model, scheme)
 
 @time sim1 = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
+
+# save
+using JLD2
+write(string("iter",sim.model.iter,"_bi",sim.model.burnin,".jls"), sim)
+@save string("inits.jld2") inits
 
 ```

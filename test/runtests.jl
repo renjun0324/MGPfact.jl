@@ -69,22 +69,26 @@
 #------------------------------------------------------------------------------
 
 nc = 1
-using Mamba, RData, Distributions
 L = 3
 Q = 3
 rt = [1,2,3]
-yx = RData.load("test/murp_matrix_pca.rda")
+using CellTrek, Mamba, RData
+yx = RData.load("murp_matrix_pca.rda")
 yx = yx["murp_matrix_pca"][:,1:Q]
-iterations = 200
+iterations = 10
 
+# running model
 model = CellTrek.modMGPpseudoT()
-sim = CellTrek.celltracking(model, yx, Q, L, rt, 10, nc)
-
+SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
+setinputs!(model, SC)
+setinits!(model, inits)
+setsamplers!(model, scheme)
 @time sim = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
-write(string("2_pseudotime/2.1_julia_result/iter",sim1.model.iter,"_bi",sim1.model.burnin,".jls"), sim1)
 
+# save
 using JLD2
-@save string("2_pseudotime/2.1_julia_result/inits.jld2") inits
+write(string("iter",sim.model.iter,"_bi",sim.model.burnin,".jls"), sim)
+@save string("inits.jld2") inits
 
 #------------------------------------------------------------------------------
 #
@@ -92,23 +96,27 @@ using JLD2
 #
 #------------------------------------------------------------------------------
 
-using RData
-nc = 3
-L = 3
-Q = 3
-rt = [1,2,3]
-yx = RData.load("test/murp_matrix_pca.rda")
-yx = yx["murp_matrix_pca"][:,1:Q]
-iterations = 200
+# using RData
+# nc = 3
+# L = 3
+# Q = 3
+# rt = [1,2,3]
+# yx = RData.load("test/murp_matrix_pca.rda")
+# yx = yx["murp_matrix_pca"][:,1:Q]
+# iterations = 200
 
-using Distributed, RData
-addprocs(nc)
-@everywhere using CellTrek, Mamba, RData, Distributions
-@everywhere model = CellTrek.modMGPpseudoT()
-# sim = CellTrek.celltracking(model, yx, Q, L, rt, 100, nc)
+# using Distributed
+# addprocs(nc)
+# @everywhere using CellTrek, Mamba, RData, Distributions
+# # sim = CellTrek.celltracking(model, yx, Q, L, rt, 100, nc)
+# model = CellTrek.modMGPpseudoT()
+# SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
+# setinputs!(model, SC)
+# setinits!(model, inits)
+# setsamplers!(model, scheme)
+# @time sim1 = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
 
-SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
-setinputs!(model, SC)
-setinits!(model, inits)
-setsamplers!(model, scheme)
-@time sim1 = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
+# save
+# using JLD2
+# write(string("iter",sim.model.iter,"_bi",sim.model.burnin,".jls"), sim)
+# @save string("inits.jld2") inits
