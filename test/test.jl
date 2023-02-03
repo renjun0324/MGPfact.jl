@@ -92,8 +92,8 @@ using JLD2
 #
 #------------------------------------------------------------------------------
 
+using RData
 nc = 3
-using Mamba, RData, Distributions
 L = 3
 Q = 3
 rt = [1,2,3]
