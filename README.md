@@ -1,5 +1,5 @@
 
-<br><img src="test/logo.png" align="right" width="100"/>
+<br><img src="test/logo.png" align="left" width="100"/>
 # CellTrek.jl 
 Single-cell differentiation trajectory reconstruction
 
