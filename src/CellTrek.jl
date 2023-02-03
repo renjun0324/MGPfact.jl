@@ -146,7 +146,7 @@ module CellTrek
           prior = -logpdf(InverseGamma(0.1, 0.1), s2)
           return sum(likelihood) + prior
         end
-    end 
+    end  
     
     include("modMGPpseudoT.jl")
 end 
