@@ -16,6 +16,6 @@ using Distributions: Normal, Beta, truncated
 include("pseudot.jl")
 include("track.jl")
 include("modMGPpseudoT.jl")
-# include("celltracking.jl")
+include("celltracking.jl")
 
 end 

@@ -62,18 +62,23 @@
 # using JLD2
 # @save string("2_pseudotime/2.1_julia_result/inits.jld2") inits
 
-using Mamba, RData, Distributions
+#------------------------------------------------------------------------------
+#
+#                                 1 thread
+#
+#------------------------------------------------------------------------------
+
 nc = 1
+using Mamba, RData, Distributions
 L = 3
 Q = 3
-iterations = 200
 rt = [1,2,3]
 yx = RData.load("test/murp_matrix_pca.rda")
 yx = yx["murp_matrix_pca"][:,1:Q]
+iterations = 200
 
 model = CellTrek.modMGPpseudoT()
-sim = CellTrek.celltracking(model, yx, Q, L, rt, 10, 1)
-sim = celltracking(yx, Q, L, rt, iterations, nc)
+sim = CellTrek.celltracking(model, yx, Q, L, rt, 10, nc)
 
 @time sim = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
 write(string("2_pseudotime/2.1_julia_result/iter",sim1.model.iter,"_bi",sim1.model.burnin,".jls"), sim1)
@@ -81,4 +86,29 @@ write(string("2_pseudotime/2.1_julia_result/iter",sim1.model.iter,"_bi",sim1.mod
 using JLD2
 @save string("2_pseudotime/2.1_julia_result/inits.jld2") inits
 
-@everywhere using Mamba, RData, Distributions
+#------------------------------------------------------------------------------
+#
+#                                 mutiple threads
+#
+#------------------------------------------------------------------------------
+
+nc = 3
+using Mamba, RData, Distributions
+L = 3
+Q = 3
+rt = [1,2,3]
+yx = RData.load("test/murp_matrix_pca.rda")
+yx = yx["murp_matrix_pca"][:,1:Q]
+iterations = 200
+
+using Distributed, RData
+addprocs(nc)
+@everywhere using CellTrek, Mamba, RData, Distributions
+@everywhere model = CellTrek.modMGPpseudoT()
+# sim = CellTrek.celltracking(model, yx, Q, L, rt, 100, nc)
+
+SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
+setinputs!(model, SC)
+setinits!(model, inits)
+setsamplers!(model, scheme)
+@time sim1 = mcmc(model, SC, inits, iterations, burnin = 0, chains = nc)
