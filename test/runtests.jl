@@ -74,12 +74,13 @@ Q = 3
 rt = 1
 iterations = 10
 
-using CellTrek, Mamba, RData
+using CellTrek, Mamba, RData, Random
 test_data = joinpath(dirname(pathof(CellTrek)),"..","test","test.rda")
 yx = RData.load(test_data)
 yx = yx["murp_matrix_pca"][:,1:Q]
 
 # running model
+Random.seed!(723)
 model = CellTrek.modMGPpseudoT()
 SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
 setinputs!(model, SC)
