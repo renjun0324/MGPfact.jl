@@ -1,7 +1,7 @@
 module pseudot
-    # using KernelFunctions: Kernel
-    using KernelFunctions
-    using Mamba
+    using KernelFunctions: Kernel
+    # using KernelFunctions
+    # using Mamba
     export Trejactory, Trace, bifurcateKernel
     struct Trejactory
         t::Float64
@@ -30,7 +30,7 @@ module pseudot
     root(L::Trace, Tb::Float64) = [x.t <= Tb for x in L.X]
     branch1(L::Trace, Tb::Float64) = [(x.t > Tb) & (x.c == 1) for x in L.X]
     branch2(L::Trace, Tb::Float64) = [(x.t > Tb) & (x.c == 2) for x in L.X]
-    struct bifurcateKernel <: KernelFunctions.Kernel
+    struct bifurcateKernel <: Kernel
         Tb::Float64
         lambda::Vector{Float64}  
         sigma::Float64
