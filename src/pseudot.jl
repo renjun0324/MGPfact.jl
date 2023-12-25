@@ -9,6 +9,13 @@ module pseudot
         xr::Float64
         Trejactory(t, c, xr) = !(0<=t<=1) | !(1<=c<=2) | !(-1<xr<1) ? error("invalid input") : new(t, c, xr)
     end
+    struct bifurcateKernel <: Kernel
+        Tb::Float64
+        lambda::Vector{Float64}  
+        sigma::Float64
+        a::Float64 
+        b::Int64
+    end
     dt(x::Trejactory, t::Float64) = (x.t - t)
     dt2(x::Trejactory, t::Float64) = (x.t - t)^2
     dT(x::Trejactory, y::Trejactory) = (x.t - y.t)
@@ -30,13 +37,7 @@ module pseudot
     root(L::Trace, Tb::Float64) = [x.t <= Tb for x in L.X]
     branch1(L::Trace, Tb::Float64) = [(x.t > Tb) & (x.c == 1) for x in L.X]
     branch2(L::Trace, Tb::Float64) = [(x.t > Tb) & (x.c == 2) for x in L.X]
-    struct bifurcateKernel <: Kernel
-        Tb::Float64
-        lambda::Vector{Float64}  
-        sigma::Float64
-        a::Float64 
-        b::Int64
-    end
+
     bifurcateKernel(; Tb::Float64, lambda::Vector{Float64}, sigma::Float64, a::Float64, b::Int64) = bifurcateKernel(Tb, lambda, sigma, a, b) 
     function (k::bifurcateKernel)(x::Trejactory, y::Trejactory)
         if SameType(x, y)

@@ -1,7 +1,7 @@
 name = "MGPfact"
 uuid = "2c198e2a-189c-47da-a5ee-ea2590688210"
 authors = ["renjun <renjun0324@hotmail.com>"]
-version = "0.2.3"
+version = "0.2.4"
 
 [deps]
 Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
