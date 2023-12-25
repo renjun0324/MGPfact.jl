@@ -1,13 +1,13 @@
 
 <br><img src="test/logo.png" align="right" width="300"/>
-# CellTrek.jl 
+# MGPfact.jl 
 Single-cell differentiation trajectory reconstruction
 
 ## installation
 ```julia
 ]
-add https://github.com/renjun0324/CellTrek.jl
-using CellTrek
+add https://github.com/renjun0324/MGPfact.jl
+using MGPfact
 ```
 
 ## quick start
@@ -20,17 +20,17 @@ using RData
 L = 3
 Q = 3
 rt = 1
-test_data = joinpath(dirname(pathof(CellTrek)),"..","test","test.rda")
+test_data = joinpath(dirname(pathof(MGPfact)),"..","test","test.rda")
 yx = RData.load(test_data)
 yx = yx["murp_matrix_pca"][:,1:Q]
 iterations = 200
 
 # import packages
-using CellTrek, Mamba
+using MGPfact, Mamba
 
 # running model
-model = CellTrek.modMGPpseudoT()
-SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
+model = MGPfact.modMGPpseudoT()
+SC,inits,scheme = MGPfact.Initialize(yx, Q, L, rt, iterations, nc)
 
 setinputs!(model, SC)
 setinits!(model, inits)
@@ -57,7 +57,7 @@ L = 3
 Q = 3
 rt = 1
 
-test_data = joinpath(dirname(pathof(CellTrek)),"..","test","test.rda")
+test_data = joinpath(dirname(pathof(MGPfact)),"..","test","test.rda")
 yx = RData.load(test_data)
 yx = yx["murp_matrix_pca"][:,1:Q]
 iterations = 200
@@ -65,11 +65,11 @@ iterations = 200
 # import packages
 using Distributed
 addprocs(nc)
-@everywhere using CellTrek, Mamba
+@everywhere using MGPfact, Mamba
 
 # running model
-model = CellTrek.modMGPpseudoT()
-SC,inits,scheme = CellTrek.Initialize(yx, Q, L, rt, iterations, nc)
+model = MGPfact.modMGPpseudoT()
+SC,inits,scheme = MGPfact.Initialize(yx, Q, L, rt, iterations, nc)
 
 setinputs!(model, SC)
 setinits!(model, inits)

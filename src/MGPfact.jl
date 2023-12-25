@@ -1,4 +1,4 @@
-module CellTrek
+module MGPfact
     
 using Mamba
 using LinearAlgebra: I, Hermitian
