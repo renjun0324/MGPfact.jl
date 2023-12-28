@@ -1,12 +1,15 @@
 
-<br><img src="test/logo.png" align="right" width="300"/>
+<!-- <br><img src="test/logo.png" align="right" width="300"/> -->
 # MGPfact.jl 
-Single-cell differentiation trajectory reconstruction
+
+A model-based, unsupervised manifold learning method that factors complex cellular trajectories into interpretable bifurcating Gaussian processes of transcription. The complete functionality of MGPfact is accessible in [MGPfactR](https://github.com/renjun0324/MGPfactR), enabling the discovery of specific biological determinants of cell fate.
 
 ## installation
+
 ```julia
 ]
 add https://github.com/renjun0324/MGPfact.jl
+add RData Distributions JLD2 Mamba
 using MGPfact
 ```
 
@@ -83,3 +86,5 @@ write(string("iter",sim.model.iter,"_bi",sim.model.burnin,".jls"), sim)
 @save string("inits.jld2") inits
 
 ```
+
+In this context, we only demonstrate how to optimize the model in the Julia environment. For specific result organization and trajectory visualization, please refer to [MGPfactR](https://github.com/renjun0324/MGPfactR).
