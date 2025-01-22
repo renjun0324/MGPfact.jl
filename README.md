@@ -88,3 +88,8 @@ write(string("iter",sim.model.iter,"_bi",sim.model.burnin,".jls"), sim)
 ```
 
 In this context, we only demonstrate how to optimize the model in the Julia environment. For specific result organization and trajectory visualization, please refer to [MGPfactR](https://github.com/renjun0324/MGPfactR).
+
+## Citation
+If you use MGPfact, please cite:
+
+Ren J, Zhou Y, Hu Y, et al. MGPfactXMBD: A Model-Based Factorization Method for scRNA Data Unveils Bifurcating Transcriptional Modules Underlying Cell Fate Determination[J]. eLife, 2024.
